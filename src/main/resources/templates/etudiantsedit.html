@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Specialté</a>
+						<div class="dropdown-menu"
+							aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Ajouter</a> <a
+								class="dropdown-item" href="#">Consulter</a>
+						</div></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Departement </a>
+						<div class="dropdown-menu"
+							aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Ajouter</a> <a
+								class="dropdown-item" href="#">Consulter</a>
+
+						</div></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Etudiant </a>
+						<div class="dropdown-menu"
+							aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" th:href="@{/td/add}">Ajouter</a> <a
+								class="dropdown-item" th:href="@{/td/list}">Consulter</a>
+
+						</div></li>
+				</ul>
+			</div>
+		</nav></div>
+		<form method="put" action="#" th:action="@{/td/edit/{id}(id=${etds.numE}}" th:object="${etds}">
+  <div class="mb-3">
+    <label class="col-form-label">Nom</label> 
+    <input type="text" th:field="${etds.nomE}" class="form-control" id="nom" placeholder="nom"/> 
+    <span th:if="${#fields.hasErrors('nomE')}" th:errors="*{nomE}" class="text-danger">verifier nom</span>
+  </div>
+  <div class="mb-3">
+     <label for="niveau" class="col-form-label">Niveau</label> 
+     <input type="number" th:field="${etds.niveau}" class="form-control" id="niveau" placeholder="niveau"/> 
+     <span th:if="${#fields.hasErrors('niveau')}" th:errors="*{niveau}" class="text-danger">verifier niveau</span>
+  </div>
+  <div class="mb-3 form-check">
+      <label for="moyenne" class="col-form-label">Moyenne</label> 
+     <input type="number" th:field="${etds.moyenne}" class="form-control" id="moyenne" placeholder="moyenne"/> 
+     <span th:if="${#fields.hasErrors('moyenne')}" th:errors="*{moyenne}" class="text-danger">verifier niveau</span>
+  </div>
+  
+    <div class="mb-3">
+      <label for="deprtement" class="form-label">Departement</label>
+      <select name="departementId" class="form-control">
+      <option th:value="etds.id_departement" th:text="${etds.id_departement.libelle_departement}"></option>
+			<option th:each="d: ${deps}" th:value="${d.id_departement}" th:text="${d.libelle_departement}" />
+	</select>
+    </div>
+    
+        <div class="mb-3">
+      <label for="deprtement" class="form-label">Specialite</label>
+      <select name="specialiteId" class="form-control">
+      <option disable>-select specialite-</option>
+			<option th:each="spe: ${etds.id_specialite}" th:value="${spe.id_specialite}" th:text="${spe.libelle_specialite}" />
+	</select>
+    </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</body>
+</html>
